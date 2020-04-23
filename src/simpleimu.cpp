@@ -1,14 +1,21 @@
 #include "simpleimu_driver/simpleimu.h"
 
-Simpleimu::Simpleimu(std::string port, uint32_t baud) : io_(), serial_(io_)
+Simpleimu::Simpleimu() : io_(), serial_(io_)
 {
-  imu_pub_ = nh_.advertise<sensor_msgs::Imu>("imu", 10);
+  imu_pub_ = nh_.advertise<sensor_msgs::Imu>("imu_data", 10);
+
+  std::string port;
+  int baudrate;
+
+  ros::NodeHandle nh_p("~");
+  nh_p.param("port", port, std::string("/dev/ttyUSB0"));
+  nh_p.param("baudrate", baudrate, 115200);
 
   ROS_INFO_STREAM("connecting to device ...");
 
   boost::system::error_code ec;
   serial_.open(port, ec);
-  serial_.set_option(boost::asio::serial_port_base::baud_rate(baud));
+  serial_.set_option(boost::asio::serial_port_base::baud_rate(baudrate));
 
   sleep(2);
 

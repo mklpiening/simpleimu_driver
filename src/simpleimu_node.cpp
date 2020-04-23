@@ -5,7 +5,7 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "simpleimu");
 
-  Simpleimu imu("/dev/ttyUSB0", 115200);
+  Simpleimu imu;
 
   ros::spin();
 }

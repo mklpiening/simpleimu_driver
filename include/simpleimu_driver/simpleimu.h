@@ -9,7 +9,7 @@
 class Simpleimu
 {
 public:
-  Simpleimu(std::string port, uint32_t baud);
+  Simpleimu();
 
   ~Simpleimu();
 
