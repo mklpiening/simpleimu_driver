@@ -100,14 +100,26 @@ void Simpleimu::uartCallback(const boost::system::error_code& error, std::size_t
       imu_msg_.linear_acceleration.y = (float)lin_y_raw / 1000.0;
       imu_msg_.linear_acceleration.z = (float)lin_z_raw / 1000.0;
 
+      imu_msg_.linear_acceleration_covariance[0] = 1;
+      imu_msg_.linear_acceleration_covariance[4] = 1;
+      imu_msg_.linear_acceleration_covariance[8] = 1;
+
       imu_msg_.angular_velocity.x = (float)rot_x_raw / 1000.0;
       imu_msg_.angular_velocity.y = (float)rot_y_raw / 1000.0;
       imu_msg_.angular_velocity.z = (float)rot_z_raw / 1000.0;
+
+      imu_msg_.angular_velocity_covariance[0] = 1;
+      imu_msg_.angular_velocity_covariance[4] = 1;
+      imu_msg_.angular_velocity_covariance[8] = 1;
 
       imu_msg_.orientation.x = (float)orientation_x_raw / 1000.0;
       imu_msg_.orientation.y = (float)orientation_y_raw / 1000.0;
       imu_msg_.orientation.z = (float)orientation_z_raw / 1000.0;
       imu_msg_.orientation.w = (float)orientation_w_raw / 1000.0;
+
+      imu_msg_.orientation_covariance[0] = 1;
+      imu_msg_.orientation_covariance[4] = 1;
+      imu_msg_.orientation_covariance[8] = 1;
 
       imu_pub_.publish(imu_msg_);
     }
